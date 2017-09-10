@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name">Sophia</string>
+    <string-array
+        name="day1_array">
+        <item>@string/a1</item>
+        <item>@string/a2</item>
+        <item>@string/a3</item>
+        <item>@string/a4</item>
+        <item>@string/a5</item>
+        <item>@string/a6</item>
+        <item>@string/a7</item>
+        <item>@string/a8</item>
+        <item>@string/a9</item>
+        <item>@string/a10</item>
+        <item>@string/a11</item>
+        <item>@string/a12</item>
+        <item>@string/a13</item>
+        <item>@string/a14</item>
+        <item>@string/a15</item>
+        <item>@string/a16</item>
+        <item>@string/a17</item>
+        <item>@string/a18</item>
+        <item>@string/a19</item>
+        <item>@string/a20</item>
+        <item>@string/a21</item>
+        <item>@string/a22</item>
+        <item>@string/a23</item>
+        <item>@string/a24</item>
+        <item>@string/a25</item>
+        <item>@string/a26</item>
+        <item>@string/a27</item>
+    </string-array>
+    <string-array
+        name="day1_arrayb">
+        <item>@string/a1</item>
+        <item>@string/a2</item>
+        <item>@string/a3</item>
+        <item>@string/a4</item>
+        <item>@string/a5</item>
+        <item>@string/a6</item>
+        <item>@string/a7</item>
+        <item>@string/a8</item>
+        <item>@string/a9</item>
+        <item>@string/a10</item>
+        <item>@string/a11</item>
+        <item>@string/a12</item>
+        <item>@string/a13</item>
+        <item>@string/a14</item>
+        <item>@string/a15</item>
+        <item>@string/a16</item>
+        <item>@string/a17</item>
+        <item>@string/a18</item>
+        <item>@string/a19</item>
+        <item>@string/a20</item>
+        <item>@string/a21</item>
+        <item>@string/a22</item>
+        <item>@string/a23</item>
+        <item>@string/a24</item>
+        <item>@string/a25</item>
+        <item>@string/a26</item>
+        <item>@string/a27</item>
+    </string-array>
+    <string-array
+        name="day1_button_a_array">
+        <item>Hello?</item>
+        <item>No...</item>
+        <item>What do you want ??</item>
+        <item>Typing</item>
+        <item>Im just trying to figure out this game</item>
+        <item>Are you okay?</item>
+        <item>What am I supposed to do.</item>
+        <item>Okay.</item>
+        <item>What can i do?</item>
+        <item>You don’t seem that bad</item>
+        <item>Okay???</item>
+        <item>I\'ll try and find it.</item>
+        <item>Why are you doing this?</item>
+        <item>What did you do to me ?</item>
+        <item>...</item>
+
+    </string-array>
+    <string-array
+     name="day1_button_b_array">
+    <item>Anyone here?</item>
+    <item>Lets play</item>
+    <item>Okay, now what?</item>
+    <item>Typing</item>
+    <item>Who are you anyways?</item>
+    <item>That\'s sad</item>
+    <item>I’m getting confused.</item>
+    <item>How?</item>
+    <item>I’ll just get out and find it.</item>
+    <item>So where is the doll? </item>
+    <item>How do we get out?</item>
+    <item>I\'ll be right back</item>
+    <item>You tricked me..</item>
+    <item> I’m scared.</item>
+    <item>...</item>
+</string-array>
+
+</resources>

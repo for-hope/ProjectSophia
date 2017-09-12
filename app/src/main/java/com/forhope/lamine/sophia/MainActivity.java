@@ -1,7 +1,10 @@
 package com.forhope.lamine.sophia;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,12 +20,16 @@ import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.prefs.Preferences;
+
 public class MainActivity extends AppCompatActivity {
     private Button button1;
     private  Button button2;
     private FrameLayout mainPic;
     private TypeWriter tw;
-    private int line=0;
+    private int getDay;
+    private int level=0;
+    private String playerName;
     private int buttonText=1;
     private MediaPlayer mediaPlayer;
     private int[] bm = {R.raw.tenebrous,R.raw.thedescent,R.raw.nightmares};
@@ -35,8 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView instText;
     private final Handler handler = new Handler();
    //sql
-    private String[] answersArray = {"Hello","World"};
-    private int answersNumber = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +60,34 @@ public class MainActivity extends AppCompatActivity {
         //init buttons
         button1 = (Button) findViewById(R.id.btn1);
         button2 = (Button) findViewById(R.id.btn2);
+
         tw = (TypeWriter) findViewById(R.id.text);
         //
         submitBtn = (Button) findViewById(R.id.submit_btn);
         typeText = (EditText) findViewById(R.id.type_text);
         instText = (TextView) findViewById(R.id.instructions);
 
+        SharedPreferences prefs = getSharedPreferences("saveGame", MODE_PRIVATE);
+            getDay = prefs.getInt("savedDay", 0); //0 is the default value.
+            level= prefs.getInt("savedQ", 0);
+            buttonText = prefs.getInt("savedB", 0);
+        playerName = prefs.getString("playerName","Player");
+
+       if(!keepResponse()) {
+        if(!isPlaying()){
+        if(level==0) {
+            tw.setText("");
+        } else {
+            tw.setText(textStrings(level-1,0));
+        }
+        button1.setText(ButtonA.get(buttonText));
+        button2.setText(ButtonB.get(buttonText));
+        }else{
+            submitLayout();
+        }
+       } else {
+           updateText(0);
+       }
         //updown animation
         animation();
         //button click animation
@@ -71,13 +99,19 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               updateText(0);
+                buttonText++;
+                Prefrences.setLevel(getApplicationContext(),level,buttonText);
+
+                updateText(0);
 
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttonText++;
+                Prefrences.setLevel(getApplicationContext(),level,buttonText);
+
                 updateText(1);
 
             }
@@ -90,6 +124,9 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                 verifyAnswer(typeText.getText().toString());
                 }
+                buttonText++;
+                Prefrences.setLevel(getApplicationContext(),level,buttonText);
+
             }
         });
 
@@ -222,36 +259,48 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateText(int p) {
         //Text Update
-
-        typer(textStrings(line,p));
+        if(level==27&&getDay==0){
+            level=0;
+            buttonText=0;
+            getDay++;
+            Prefrences.setLevel(getApplicationContext(),0,0);
+        }
+        typer(textStrings(level,p));
         soundEffects();
 
         //Button Update
     }
-    private  void typer(String s) {
-        //Text Effects
-        tw.setText("");
-        tw.setCharacterDelay(150);
-        tw.animateText(s);
+    private  void typer(final String s) {
         //buttons invisible
         button1.setVisibility(View.INVISIBLE);
         button2.setVisibility(View.INVISIBLE);
+        //Text Effects
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-              if(!keepResponse()) {
-                  animationT();
-              } else {
-                  handler.postDelayed(new Runnable() {
-                      public void run() {
-                          updateText(0);
-                      }
-                  }, 1000);
+                tw.setText("");
+                tw.setCharacterDelay(0);
+                tw.animateText(s);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(!keepResponse()) {
+                            animationT();
+                        } else {
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
+                                    updateText(0);
+                                }
+                            }, 300);
 
-              }
+                        }
+                    }
+                }, 0*s.length());
             }
-        }, 172*s.length());
-        line++;
+        },1000);
+
+        level++;
+        Prefrences.setLevel(getApplicationContext(),level,buttonText);
     }
 
     private void playBM() {
@@ -280,19 +329,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String textStrings(int l, int p) {
-        List<String> LinesA = Arrays.asList(getResources().getStringArray(R.array.day1_array));
-        List<String> LinesB = Arrays.asList(getResources().getStringArray(R.array.day1_arrayb));
+        if(getDay==0) {
+        List<String> levelsA = Arrays.asList(getResources().getStringArray(R.array.day1_array));
+        List<String> levelsB = Arrays.asList(getResources().getStringArray(R.array.day1_arrayb));
+        if(l==6) return levelsA.get(l) + " " + playerName + ".";
         if(p==0){
-            return LinesA.get(l);
+            return levelsA.get(l);
         } else {
-            return LinesB.get(l);
+            return levelsB.get(l);
         }
 
+    } else {
+            List<String> levelsA = Arrays.asList(getResources().getStringArray(R.array.day2_array));
+            List<String> levelsB = Arrays.asList(getResources().getStringArray(R.array.day1_arrayb));
+            if(p==0){
+                return levelsA.get(l);
+            } else {
+                return levelsB.get(l);
+            }
+
+        }
     }
     //sound effects
     private void soundEffects(){
 
-        switch (line) {
+        switch (level) {
             case 1:
                 soundPlayer = MediaPlayer.create(getApplicationContext(), R.raw.door);
                 soundPlayer.start();
@@ -302,6 +363,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 7:
                 soundPlayer = MediaPlayer.create(getApplicationContext(), R.raw.dolly);
+                soundPlayer.start();
+                break;
+            case 18:
+                soundPlayer = MediaPlayer.create(getApplicationContext(), R.raw.laugh);
                 soundPlayer.start();
                 break;
             case 20:
@@ -322,10 +387,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 break;
-            case 18:
-                soundPlayer = MediaPlayer.create(getApplicationContext(), R.raw.laugh);
-                soundPlayer.start();
-                break;
+
 
         }
 
@@ -339,8 +401,8 @@ public class MainActivity extends AppCompatActivity {
         submitBtn.setVisibility(View.VISIBLE);
         instText.setVisibility(View.VISIBLE);
         typeText.setVisibility(View.VISIBLE);
-        if(line == 3){
-            instText.setText(textStrings(line-1,0));
+        if(level == 3){
+            instText.setText(textStrings(level-1,0));
             instText.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
         }
     }
@@ -351,17 +413,29 @@ public class MainActivity extends AppCompatActivity {
         typeText.setVisibility(View.INVISIBLE);
     }
     private void verifyAnswer(String s) {
-        if (s.matches(answersArray[answersNumber])) {
+            playerName = s;
+            Prefrences.saveName(getApplicationContext(),s);
             updateText(0);
             revertLayout();
+    }
+
+    //keep the text going
+  private boolean keepResponse() {
+        return (level==8||level==9||level==12||level==13||level==15||level==16|| (level >= 20 && level<27)) && getDay==0 ;
+    }
+ private boolean isPlaying() {
+        return level == 3;
+    }
+    private void levelGame() {
+        if(level==3) {
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    submitLayout();
+                }
+            }, 2000);
         }
     }
-    //keep the text going
-    public boolean keepResponse() {
-        return line==8||line==9||line==12||line==13||line==15||line==16|| (line >= 20 && line<27) ;
-    }
     private void animationT(){
-
         final Animation zoomIn = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.zoom_in);
         final  Animation zoomOut = AnimationUtils.loadAnimation(getApplicationContext(),
@@ -390,15 +464,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-
                 if(!keepResponse()) {
-                    if(line==3){
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                submitLayout();
-                            }
-                        }, 2000);
-
+                    if(isPlaying()){
+                    levelGame();
                     }else {
                      //   revertLayout();
                         button1.setText(ButtonA.get(buttonText));
@@ -408,7 +476,8 @@ public class MainActivity extends AppCompatActivity {
                         tw.setVisibility(View.VISIBLE);
 
                 }}
-                buttonText++;
+
+
             }
 
             @Override
@@ -425,6 +494,8 @@ public class MainActivity extends AppCompatActivity {
         tw.startAnimation(zoomIn);
 
     }
+    private void eachDay() {
 
+    }
 
 }

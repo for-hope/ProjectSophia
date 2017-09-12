@@ -1,5 +1,50 @@
 <resources>
     <string name="app_name">Sophia</string>
+    <string-array name="day2_array">
+        <item>Good Morning, Are you ready for today\'s game?</item>
+        <item>It is too dark in here</item>
+        <item>find a way to open the light. so we can play.</item>
+        <item>Let\'s play hide and seek</item>
+        <item>You hide and i will find you.</item>
+        <item>ready?</item>
+        <item>You haven\'t gotten anywhere…</item>
+        <item>I have a better game i will run and try to catch me.</item>
+        <item>Are you tired?</item>
+        <item>Do you think this is fun?</item>
+        <item>Soon it wont be.</item>
+
+
+        <item>Did you think today\'s games are over?</item>
+        <item>Dolly wants to play with us</item>
+        <item>Once dolly finishes playing you can get your key letter </item>
+        <item>She wants to know what is the most important thing in your life </item>
+        <item>Dolly says we are in a really big castle,  </item>
+        <item>The only way to get to the key is to get to a specific room </item>
+        <item>Today you ran after me, for each 10 time you tried to catch me  </item>
+        <item>we went through a room </item>
+        <item>in which room are we in now? </item>
+        <item>That\'s right </item>
+        <item>Now to get what you want you have to answer me </item>
+        <item>Would you rather me call your father or mother ?</item>
+        <item>You are now in another room</item>
+        <item>You are Mom is standing next to you holding a knife</item>
+        <item>She heard what you said about her</item>
+        <item>Do you think they will kill you ?</item>
+        <item>Very will. You now have to kill them in order to pass to the next room. do you wish to proceed ?</item>
+        <item>Do you think you had no options ?</item>
+        <item>You could have just quit the game but you didn\'t.</item>
+        <item>Whatever you do, the choices you are making now will hunt you till the end of your life</item>
+        <item>I will be watching you every night in your sleep</item>
+        <item>holding a knife while staring at you</item>
+        <item>You wont notice anything at first</item>
+        <item>But you will once days pass by and you notice someone is watching</item>
+        <item>that would be me</item>
+        <item>as for the key you are looking for</item>
+        <item>it\'s the numbers of rooms you went into + the number of times you said yes.</item>
+    </string-array>
+
+
+
     <string-array
         name="day1_array">
         <item>@string/a1</item>

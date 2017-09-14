@@ -2,6 +2,7 @@ package com.forhope.lamine.sophia;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.hardware.Camera;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.prefs.Preferences;
 
 public class MainActivity extends AppCompatActivity {
@@ -264,6 +267,8 @@ public class MainActivity extends AppCompatActivity {
             buttonText=0;
             getDay++;
             Prefrences.setLevel(getApplicationContext(),0,0);
+            ButtonA = Arrays.asList(getResources().getStringArray(R.array.day2_button_a_array));
+            ButtonB = Arrays.asList(getResources().getStringArray(R.array.day2_button_b_array));
         }
         typer(textStrings(level,p));
         soundEffects();
@@ -352,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
     }
     //sound effects
     private void soundEffects(){
-
+       if(getDay==0)
         switch (level) {
             case 1:
                 soundPlayer = MediaPlayer.create(getApplicationContext(), R.raw.door);
@@ -424,15 +429,28 @@ public class MainActivity extends AppCompatActivity {
         return (level==8||level==9||level==12||level==13||level==15||level==16|| (level >= 20 && level<27)) && getDay==0 ;
     }
  private boolean isPlaying() {
-        return level == 3;
+      if(getDay==0){
+          return level == 3;
+     } else {
+          return level == 3 || level==7 || level==10;
+      }
+
+
     }
     private void levelGame() {
-        if(level==3) {
+        if(level==3 && getDay==0) {
             handler.postDelayed(new Runnable() {
                 public void run() {
                     submitLayout();
                 }
             }, 2000);
+        }
+        if(level==3 && getDay==1){
+           if(flashStatus()) {
+               updateText(0);
+           } else if(level==7 && getDay==1) {
+
+           }
         }
     }
     private void animationT(){
@@ -494,8 +512,8 @@ public class MainActivity extends AppCompatActivity {
         tw.startAnimation(zoomIn);
 
     }
-    private void eachDay() {
-
+    public boolean flashStatus() {
+        return true;
     }
 
 }

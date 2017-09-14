@@ -8,12 +8,11 @@
         <item>You hide and i will find you.</item>
         <item>ready?</item>
         <item>You haven\'t gotten anywhere…</item>
+        <item>You know what happens when all 3 hearts are gone…</item>
         <item>I have a better game i will run and try to catch me.</item>
         <item>Are you tired?</item>
         <item>Do you think this is fun?</item>
         <item>Soon it wont be.</item>
-
-
         <item>Did you think today\'s games are over?</item>
         <item>Dolly wants to play with us</item>
         <item>Once dolly finishes playing you can get your key letter </item>
@@ -141,6 +140,41 @@
     <item>You tricked me..</item>
     <item> I’m scared.</item>
     <item>...</item>
+</string-array>
+    <string-array
+     name="day2_button_a_array">
+    <item>Yes…lets just finish already</item>
+    <item>Yes it\'s too dark…</item>
+    <item>Okay…</item>
+    <item>Yes</item>
+    <item>Sorry i didn\'t know what to do</item>
+    <item>You tricked me</item>
+    <item>Sounds better…</item>
+    <item>Catch me!</item>
+    <item>What the hell was that?.</item>
+    <item>Now what ? </item>
+    <item>Yes.</item>
+    <item>…</item>
+    <item>Ill be waiting</item>
+    <item>…</item>
+    <item>…</item>
+</string-array> <string-array
+     name="day2_button_b_array">
+    <item>Yes…lets just finish already</item>
+    <item>Yes it\'s too dark…</item>
+    <item>Okay…</item>
+    <item>Yes</item>
+    <item>Sorry i didn\'t know what to do</item>
+    <item>You tricked me</item>
+    <item>Sounds better…</item>
+    <item>Catch me!</item>
+    <item>What the hell was that?.</item>
+    <item>Now what ? </item>
+    <item>Yes.</item>
+    <item>…</item>
+    <item>Ill be waiting</item>
+    <item>…</item>
+    <item>…</item>
 </string-array>
 
 </resources>
